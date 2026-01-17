@@ -1,11 +1,16 @@
 <?php
 require_once 'vendor/autoload.php';
 
-// GANTI DENGAN KREDENSIAL ANDA
-$clientID = 'MASUKKAN_CLIENT_ID_GOOGLE_DISINI';
-$clientSecret = 'MASUKKAN_CLIENT_SECRET_GOOGLE_DISINI';
-$redirectUri = 'http://localhost/carter-mobil/google_callback.php';
+// Load file .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
+
+$clientID = $_ENV['GOOGLE_CLIENT_ID'];
+$clientSecret = $_ENV['GOOGLE_CLIENT_SECRET'];
+$redirectUri = $_ENV['GOOGLE_REDIRECT_URI'];
+
+// Setup Google 
 $client = new Google_Client();
 $client->setClientId($clientID);
 $client->setClientSecret($clientSecret);
