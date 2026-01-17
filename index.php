@@ -16,6 +16,9 @@ $isAdmin = ($_SESSION['role'] == 'admin');
             <h1 class="text-xl font-bold">🚗 RentalMobil</h1>
             <div class="flex items-center gap-4">
                 <span>Halo, <b><?= $_SESSION['username']; ?></b></span>
+                <a href="transaksi.php" class="text-white hover:text-yellow-300 font-medium transition">
+                <?= $isAdmin ? "Data Pesanan" : "Riwayat Saya"; ?>
+              </a>
                 <?php if($isAdmin): ?>
                     <a href="admin_tambah.php" class="bg-green-500 px-3 py-1 rounded text-sm">+ Mobil</a>
                 <?php endif; ?>
