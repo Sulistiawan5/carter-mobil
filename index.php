@@ -31,7 +31,6 @@ $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] == 'admin');
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 
                 <a href="index.php" class="flex items-center gap-2 group">
-                    <span class="text-2xl">🚗</span>
                     <span class="text-xl font-bold tracking-tight group-hover:text-blue-200 transition">RentalMobil</span>
                 </a>
 
