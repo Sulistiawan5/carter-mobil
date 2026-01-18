@@ -2,9 +2,26 @@
 session_start();
 include 'koneksi.php';
 
-if ($_SESSION['role'] == 'admin' && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    mysqli_query($conn, "DELETE FROM mobil WHERE id='$id'");
+// Cek apakah user adalah admin
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
+    header("Location: index.php");
+    exit;
 }
-header("Location: index.php");
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    
+    
+    $query = "UPDATE mobil SET is_active = 0 WHERE id = '$id'";
+    
+    if (mysqli_query($conn, $query)) {
+        echo "<script>
+                alert('Mobil berhasil dihapus! (Data aman di database untuk riwayat transaksi)');
+                window.location.href='index.php';
+              </script>";
+    } else {
+        echo "Gagal menghapus: " . mysqli_error($conn);
+    }
+}
 ?>

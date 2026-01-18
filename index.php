@@ -80,7 +80,7 @@ $isAdmin = (isset($_SESSION['role']) && $_SESSION['role'] == 'admin');
         <div id="container-mobil" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <?php
             
-            $query_str = "SELECT * FROM mobil  ORDER BY id DESC";
+            $query_str = "SELECT * FROM mobil WHERE is_active = 1 ORDER BY id DESC";
             
             // Fallback jika belum update database soft delete
             // $query_str = "SELECT * FROM mobil ORDER BY id DESC"; 
