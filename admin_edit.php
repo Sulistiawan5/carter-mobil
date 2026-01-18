@@ -20,7 +20,7 @@ $id = $_GET['id'];
 $query = mysqli_query($conn, "SELECT * FROM mobil WHERE id = '$id'");
 $data = mysqli_fetch_assoc($query);
 
-// Jika tombol Update ditekan
+// Proses Update
 if (isset($_POST['update'])) {
     $nama = $_POST['nama'];
     $harga = $_POST['harga'];
@@ -28,8 +28,7 @@ if (isset($_POST['update'])) {
     // Default: Gunakan gambar lama
     $gambar_final = $data['gambar'];
 
-    // LOGIKA GANTI GAMBAR
-    // 1. Cek apakah ada file baru diupload?
+    // 1. Cek Upload File Baru
     if (!empty($_FILES['gambar_file']['name'])) {
         $nama_file = $_FILES['gambar_file']['name'];
         $tmp_file = $_FILES['gambar_file']['tmp_name'];
@@ -38,19 +37,13 @@ if (isset($_POST['update'])) {
 
         if (move_uploaded_file($tmp_file, $path_upload)) {
             $gambar_final = $path_upload;
-            
-            // (Opsional) Hapus file lama jika ada di folder uploads agar hemat storage
-            // if (file_exists($data['gambar']) && strpos($data['gambar'], 'uploads/') !== false) {
-            //     unlink($data['gambar']);
-            // }
         }
     } 
-    // 2. Jika tidak upload file, cek apakah user input URL baru?
+    // 2. Cek URL Baru
     else if (!empty($_POST['gambar_url'])) {
         $gambar_final = $_POST['gambar_url'];
     }
 
-    // Update Database
     $query_update = "UPDATE mobil SET 
                      nama_mobil = '$nama', 
                      harga_per_hari = '$harga', 
@@ -91,26 +84,26 @@ if (isset($_POST['update'])) {
             <label class="block text-gray-700 font-bold mb-2">Gambar Mobil</label>
             
             <div class="mb-3 p-2 border rounded bg-gray-50 flex items-center gap-4">
-                <img src="<?= $data['gambar']; ?>" class="w-20 h-20 object-cover rounded shadow">
+                <img id="preview-img" src="<?= $data['gambar']; ?>" class="w-24 h-24 object-cover rounded shadow border bg-white">
                 <div>
-                    <p class="text-xs text-gray-500 font-bold uppercase">Gambar Saat Ini</p>
-                    <p class="text-xs text-gray-400">Biarkan input kosong jika tidak ingin mengubah gambar.</p>
+                    <p class="text-xs text-gray-500 font-bold uppercase">Preview Gambar</p>
+                    <p class="text-xs text-gray-400" id="preview-text">Gambar saat ini dari database.</p>
                 </div>
             </div>
 
             <div class="flex flex-col gap-3">
-                <input type="text" name="gambar_url" placeholder="Ganti dengan URL baru..." class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="input-url" name="gambar_url" placeholder="Paste URL gambar baru..." class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
                 
-                <div class="text-center text-gray-400 text-sm font-bold">- ATAU UPLOAD BARU -</div>
+                <div class="text-center text-gray-400 text-sm font-bold">- ATAU -</div>
 
-                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                <label for="input-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition relative overflow-hidden group">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg class="w-8 h-8 mb-3 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <svg class="w-8 h-8 mb-3 text-gray-500 group-hover:text-blue-500" fill="none" viewBox="0 0 20 16">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                         </svg>
-                        <p class="text-sm text-gray-500"><span class="font-semibold">Klik ganti foto</span> (Opsi 2)</p>
+                        <p class="text-sm text-gray-500"><span class="font-semibold">Klik Upload File Baru</span></p>
                     </div>
-                    <input id="dropzone-file" type="file" name="gambar_file" class="hidden" accept="image/*" />
+                    <input id="input-file" type="file" name="gambar_file" class="hidden" accept="image/*" />
                 </label>
             </div>
         </div>
@@ -127,6 +120,46 @@ if (isset($_POST['update'])) {
             </button>
         </div>
     </form>
+
+    <script>
+        const inputFile = document.getElementById('input-file');
+        const inputUrl = document.getElementById('input-url');
+        const previewImg = document.getElementById('preview-img');
+        const previewText = document.getElementById('preview-text');
+        const originalSrc = "<?= $data['gambar']; ?>"; // Simpan gambar asli
+
+        // 1. Jika User Upload File dari Komputer
+        inputFile.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                // Buat URL sementara dari file yg dipilih
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewText.textContent = "Preview dari File Upload";
+                    previewText.className = "text-xs text-green-600 font-bold";
+                    inputUrl.value = ""; // Kosongkan URL jika upload file
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 2. Jika User Paste URL Gambar
+        inputUrl.addEventListener('input', function() {
+            const url = this.value;
+            if (url) {
+                previewImg.src = url;
+                previewText.textContent = "Preview dari URL";
+                previewText.className = "text-xs text-blue-600 font-bold";
+                inputFile.value = ""; // Reset input file jika isi URL
+            } else {
+                // Jika URL dihapus, kembalikan ke gambar asli database
+                previewImg.src = originalSrc;
+                previewText.textContent = "Gambar saat ini dari database.";
+                previewText.className = "text-xs text-gray-400";
+            }
+        });
+    </script>
 
 </body>
 </html>
