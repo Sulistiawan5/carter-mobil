@@ -66,56 +66,60 @@ if (isset($_POST['update'])) {
     <title>Edit Mobil</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
 
-    <form method="POST" enctype="multipart/form-data" class="w-full max-w-lg bg-white p-8 rounded-lg shadow-lg my-10">
+    <form method="POST" enctype="multipart/form-data" class="w-full max-w-lg bg-white p-8 rounded-xl shadow-xl">
         <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-4">Edit Data Mobil</h2>
 
         <?php if(isset($error)): ?>
-            <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm"><?= $error; ?></div>
+            <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm font-medium"><?= $error; ?></div>
         <?php endif; ?>
 
-        <div class="mb-4">
+        <div class="mb-5">
             <label class="block text-gray-700 font-bold mb-2">Nama Mobil</label>
-            <input type="text" name="nama" value="<?= $data['nama_mobil']; ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="text" name="nama" value="<?= $data['nama_mobil']; ?>" class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-5">
             <label class="block text-gray-700 font-bold mb-2">Gambar Mobil</label>
             
-            <div class="mb-3 p-2 border rounded bg-gray-50 flex items-center gap-4">
-                <img id="preview-img" src="<?= $data['gambar']; ?>" class="w-24 h-24 object-cover rounded shadow border bg-white">
-                <div>
-                    <p class="text-xs text-gray-500 font-bold uppercase">Preview Gambar</p>
-                    <p class="text-xs text-gray-400" id="preview-text">Gambar saat ini dari database.</p>
-                </div>
+            <div class="mb-4 p-4 border rounded-lg bg-gray-50 flex flex-col items-center justify-center text-center">
+                <img id="preview-img" src="<?= $data['gambar']; ?>" 
+                     class="w-full h-48 object-cover rounded-lg shadow-sm mb-2 border border-gray-200">
+                
+                <p id="preview-text" class="text-xs text-gray-500 font-medium">Gambar Saat Ini (Database)</p>
             </div>
 
             <div class="flex flex-col gap-3">
-                <input type="text" id="input-url" name="gambar_url" placeholder="Paste URL gambar baru..." class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="input-url" name="gambar_url" placeholder="Ganti dengan URL baru..." class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
                 
-                <div class="text-center text-gray-400 text-sm font-bold">- ATAU -</div>
+                <div class="relative flex py-1 items-center">
+                    <div class="flex-grow border-t border-gray-200"></div>
+                    <span class="flex-shrink-0 mx-4 text-gray-400 text-xs font-bold">ATAU GANTI FILE</span>
+                    <div class="flex-grow border-t border-gray-200"></div>
+                </div>
 
-                <label for="input-file" class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition relative overflow-hidden group">
+                <label for="input-file" class="flex flex-col items-center justify-center w-full h-24 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-white hover:bg-gray-50 transition group">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg class="w-8 h-8 mb-3 text-gray-500 group-hover:text-blue-500" fill="none" viewBox="0 0 20 16">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                        </svg>
-                        <p class="text-sm text-gray-500"><span class="font-semibold">Klik Upload File Baru</span></p>
+                        <svg class="w-6 h-6 mb-2 text-gray-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                        <p class="text-sm text-gray-500"><span class="font-semibold text-blue-600">Klik Ganti Foto</span> (Opsi 2)</p>
                     </div>
                     <input id="input-file" type="file" name="gambar_file" class="hidden" accept="image/*" />
                 </label>
             </div>
         </div>
 
-        <div class="mb-6">
+        <div class="mb-8">
             <label class="block text-gray-700 font-bold mb-2">Harga Sewa (Per Hari)</label>
-            <input type="number" name="harga" value="<?= $data['harga_per_hari']; ?>" class="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-500 font-bold">Rp</span>
+                <input type="number" name="harga" value="<?= $data['harga_per_hari']; ?>" class="w-full border border-gray-300 p-3 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition" required>
+            </div>
         </div>
 
-        <div class="flex items-center justify-end gap-4">
-            <a href="index.php" class="text-gray-500 hover:text-gray-700 font-medium">Batal</a>
-            <button type="submit" name="update" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-6 rounded shadow-lg transform transition hover:scale-105">
+        <div class="flex items-center justify-end gap-3">
+            <a href="index.php" class="px-5 py-2.5 rounded-lg text-gray-600 hover:bg-gray-100 font-medium transition">Batal</a>
+            <button type="submit" name="update" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2.5 px-6 rounded-lg shadow-lg transform transition hover:scale-105">
                 Update Data
             </button>
         </div>
@@ -126,37 +130,38 @@ if (isset($_POST['update'])) {
         const inputUrl = document.getElementById('input-url');
         const previewImg = document.getElementById('preview-img');
         const previewText = document.getElementById('preview-text');
-        const originalSrc = "<?= $data['gambar']; ?>"; // Simpan gambar asli
+        
+        // PENTING: Simpan gambar asli dari PHP ke variabel JS
+        const originalSrc = "<?= $data['gambar']; ?>"; 
 
-        // 1. Jika User Upload File dari Komputer
+        // 1. Jika User Upload File
         inputFile.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                // Buat URL sementara dari file yg dipilih
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     previewImg.src = e.target.result;
-                    previewText.textContent = "Preview dari File Upload";
-                    previewText.className = "text-xs text-green-600 font-bold";
-                    inputUrl.value = ""; // Kosongkan URL jika upload file
+                    previewText.textContent = "Preview: File Baru yang akan diupload";
+                    previewText.className = "text-xs text-green-600 font-bold mt-2";
+                    inputUrl.value = ""; // Kosongkan URL
                 }
                 reader.readAsDataURL(file);
             }
         });
 
-        // 2. Jika User Paste URL Gambar
+        // 2. Jika User Ketik URL
         inputUrl.addEventListener('input', function() {
             const url = this.value;
             if (url) {
                 previewImg.src = url;
-                previewText.textContent = "Preview dari URL";
-                previewText.className = "text-xs text-blue-600 font-bold";
-                inputFile.value = ""; // Reset input file jika isi URL
+                previewText.textContent = "Preview: URL Baru";
+                previewText.className = "text-xs text-blue-600 font-bold mt-2";
+                inputFile.value = ""; // Reset input file
             } else {
-                // Jika URL dihapus, kembalikan ke gambar asli database
+                // Jika URL dihapus, KEMBALI KE GAMBAR ASLI DATABASE
                 previewImg.src = originalSrc;
-                previewText.textContent = "Gambar saat ini dari database.";
-                previewText.className = "text-xs text-gray-400";
+                previewText.textContent = "Gambar Saat Ini (Database)";
+                previewText.className = "text-xs text-gray-500 font-medium mt-2";
             }
         });
     </script>
