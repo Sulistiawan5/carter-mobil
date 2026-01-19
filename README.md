@@ -2,6 +2,7 @@
 
 Aplikasi berbasis web untuk manajemen penyewaan mobil yang sederhana, responsif, dan modern. Dibangun menggunakan **PHP Native** dan **Tailwind CSS**.
 Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengelola), mulai dari pemesanan, manajemen armada dengan sistem *Soft Delete*, hingga laporan transaksi. 
+
 ---
 
 ## 📸 Screenshots
@@ -20,7 +21,7 @@ Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengel
 ### 👤 User (Penyewa)
 * **Autentikasi Modern:** Login & Register (Support **Google Login**).
 * **Pencarian Mobil:** Live search tanpa reload halaman (AJAX).
-* **Booking System:** * Validasi tanggal sewa (tidak bisa pilih tanggal lampau).
+* **Booking System:** Validasi tanggal sewa (tidak bisa pilih tanggal lampau).
   * Kalkulator harga otomatis (Real-time).
 * **Riwayat Transaksi:** Melihat status pesanan (Aktif/Selesai) dalam tampilan responsif (Card view di HP).
 
@@ -89,7 +90,7 @@ Ikuti langkah ini untuk menjalankan proyek di komputer Anda:
 ### 2. Konfigurasi Proyek
 * Clone repository ini atau download ZIP.
   ```bash
-  git clone [https://github.com/Sulistiawan5/carter-mobil.git](https://github.com/Sulistiawan5/carter-mobil.git)
+  git clone https://github.com/Sulistiawan5/carter-mobil.git
   ```
 * Pindahkan folder ke htdocs (jika menggunakan XAMPP) atau folder www (jika menggunakan Laragon).
 * Pastikan file `koneksi.php` sesuai dengan settingan MySQL Anda:
