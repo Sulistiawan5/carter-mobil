@@ -1,8 +1,8 @@
-# 🚗 Sistem Informasi Rental Mobil (Car Rental)
+#🚗 Sistem Informasi Rental Mobil (Car Rental)
 
 Aplikasi berbasis web untuk manajemen penyewaan mobil yang sederhana, responsif, dan modern. Dibangun menggunakan **PHP Native** dan **Tailwind CSS**.
 Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengelola), mulai dari pemesanan, manajemen armada dengan sistem *Soft Delete*, hingga laporan transaksi. 
----
+
 
 ## 📸 Screenshots
 
@@ -13,7 +13,7 @@ Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengel
 
 
 
----
+
 
 ## 🔥 Fitur Unggulan
 
