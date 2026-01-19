@@ -109,7 +109,7 @@ Jika ingin fitur Google Login bekerja:
   | Role | Email | Password|
   |:---:|:---:|:---:|
   | Admin | admin@carter.com | admin123 |
-  | User | user@carter.co | user123 |
+  | User | user@carter.com | user123 |
 
   ## 📂 Struktur Folder
 
