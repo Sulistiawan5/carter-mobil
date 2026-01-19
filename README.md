@@ -1,8 +1,8 @@
-#🚗 Sistem Informasi Rental Mobil (Car Rental)
+# 🚗 Sistem Informasi Rental Mobil (Car Rental)
 
 Aplikasi berbasis web untuk manajemen penyewaan mobil yang sederhana, responsif, dan modern. Dibangun menggunakan **PHP Native** dan **Tailwind CSS**.
 Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengelola), mulai dari pemesanan, manajemen armada dengan sistem *Soft Delete*, hingga laporan transaksi. 
-
+---
 
 ## 📸 Screenshots
 
@@ -11,7 +11,7 @@ Proyek ini mencakup fitur lengkap untuk **User** (Penyewa) dan **Admin** (Pengel
 | ![Dashboard](assets/dashboard.png) | ![Booking](assets/booking.png) |
 | *Tampilan Grid Mobil Responsif* | *Form Booking dengan Live Calculator* |
 
-
+---
 
 
 
@@ -77,7 +77,7 @@ erDiagram
         int total_harga
     }
 ```
-##🚀 Cara Instalasi (Localhost)
+## 🚀 Cara Instalasi (Localhost)
 
 Ikuti langkah ini untuk menjalankan proyek di komputer Anda:
 
@@ -107,10 +107,10 @@ Jika ingin fitur Google Login bekerja:
   Gunakan akun berikut untuk pengujian:
   | Role | Email | Password|
   |:---:|:---:|:---:|
-| Admin | admin@carter.com | admin123 |
-| User | user@carter.co | user123 |
+  | Admin | admin@carter.com | admin123 |
+  | User | user@carter.co | user123 |
 
-  ##📂 Struktur Folder
+  ## 📂 Struktur Folder
 
 Berikut adalah susunan folder dan file dalam proyek ini:
 
@@ -140,6 +140,6 @@ carter-mobil/
 └── 📄 README.md            # Dokumentasi proyek ini
 ```
 
-##🤝 Kontribusi
+## 🤝 Kontribusi
 
-Proyek ini dibuat untuk tujuan pemenuhan tugas UAS mata kuliah Pengembangan Aplikasi Basis Data. Silakan fork dan kembangkan sesuai kebutuhan.
+Proyek ini dibuat untuk tujuan pemenuhan tugas `UAS` mata kuliah `Pengembangan Aplikasi Basis Data`. Silakan fork dan kembangkan sesuai kebutuhan.
